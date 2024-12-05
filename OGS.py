@@ -158,16 +158,17 @@ class GroceryStore:
             print(f"{idx}. {product.name} - ${product.price} (Stock: {product.stock})")
     
     def search_product(self, search_query):
-        print(f"Searching for: {search_query}")  # Debugging statement
-        print(f"Available products: {[product.name for product in self.products]}")  # Debugging statement
+        print(f"Searching for: {search_query}")  # Debugging
+        print(f"Available products: {[product.name for product in self.products]}")  # Debugging
 
         found = False
         for product in self.products:
-            if search_query.lower() in product.name.lower():
+            if search_query.lower() in product.name.lower():  # Match query in product names
                 print(f"Product: {product.name}, Price: ${product.price}, Stock: {product.stock}")
-            found = True
+                found = True
         if not found:
             print("No products found matching your search.")
+
 
 
     def add_to_cart(self, product_index, quantity):
@@ -395,4 +396,6 @@ def main():
 
         else:
             print("Invalid choice. Please try again.")
+
+
 
