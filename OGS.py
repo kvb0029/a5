@@ -8,6 +8,8 @@ class User:
         self.address = address
         self.cart = []
         self.orders = []
+        self.wishlist = []  # Initialize wishlist
+        self.discount = 0  # Initialize discount
 
     def add_to_cart(self, item):
         self.cart.append(item)
@@ -121,6 +123,7 @@ class GroceryStore:
         self.products = []
         self.users = {}
         self.logged_in_user = None
+        self.admin = "admin_username"  # Set admin username
 
     def add_product(self, product):
         self.products.append(product)
@@ -193,16 +196,16 @@ class GroceryStore:
         for order in self.logged_in_user.orders:
             order.display_order_details()
 
-def search_product(self, search_query):
-    found = False
-    for product in self.products:
-        if search_query.lower() in product.name.lower():
-            print(f"Product: {product.name}, Price: ${product.price}, Stock: {product.stock}")
+    def search_product(self, search_query):
+        found = False
+        for product in self.products:
+            if search_query.lower() in product.name.lower():
+                print(f"Product: {product.name}, Price: ${product.price}, Stock: {product.stock}")
             found = True
-    if not found:
-        print("No products found matching your search.")
+            if not found:
+                print("No products found matching your search.")
 
-def add_product_by_admin(self, name, price, stock):
+    def add_product_by_admin(self, name, price, stock):
         if self.logged_in_user and self.logged_in_user.username == self.admin:
             product = Product(name, price, stock)
             self.products.append(product)
@@ -210,7 +213,7 @@ def add_product_by_admin(self, name, price, stock):
         else:
             print("You must be an admin to add products.")
 
-def remove_product_by_admin(self, product_name):
+    def remove_product_by_admin(self, product_name):
         if self.logged_in_user and self.logged_in_user.username == self.admin:
             product_to_remove = next((p for p in self.products if p.name == product_name), None)
             if product_to_remove:
@@ -221,7 +224,7 @@ def remove_product_by_admin(self, product_name):
         else:
             print("You must be an admin to remove products.")
 
-def check_inventory(self):
+    def check_inventory(self):
         for product in self.products:
             if product.stock < 10:
                 print(f"Low stock alert: {product.name} - only {product.stock} left.")
@@ -388,4 +391,6 @@ def main():
 
         else:
             print("Invalid choice. Please try again.")
+
+
 
