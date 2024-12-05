@@ -156,6 +156,19 @@ class GroceryStore:
         print("\nAvailable Products:")
         for idx, product in enumerate(self.products, 1):
             print(f"{idx}. {product.name} - ${product.price} (Stock: {product.stock})")
+    
+    def search_product(self, search_query):
+        print(f"Searching for: {search_query}")  # Debugging statement
+        print(f"Available products: {[product.name for product in self.products]}")  # Debugging statement
+
+        found = False
+        for product in self.products:
+            if search_query.lower() in product.name.lower():
+                print(f"Product: {product.name}, Price: ${product.price}, Stock: {product.stock}")
+            found = True
+        if not found:
+            print("No products found matching your search.")
+
 
     def add_to_cart(self, product_index, quantity):
         if not self.logged_in_user:
@@ -195,15 +208,6 @@ class GroceryStore:
             return
         for order in self.logged_in_user.orders:
             order.display_order_details()
-
-    def search_product(self, search_query):
-        found = False
-        for product in self.products:
-            if search_query.lower() in product.name.lower():
-                print(f"Product: {product.name}, Price: ${product.price}, Stock: {product.stock}")
-            found = True
-            if not found:
-                print("No products found matching your search.")
 
     def add_product_by_admin(self, name, price, stock):
         if self.logged_in_user and self.logged_in_user.username == self.admin:
@@ -391,6 +395,8 @@ def main():
 
         else:
             print("Invalid choice. Please try again.")
+
+
 
 
 
