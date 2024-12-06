@@ -3,8 +3,24 @@ import unittest
 from io import StringIO
 import sys
 
-from OGS import GroceryStore
+from OGS import GroceryStore, Product
 class TestGroceryStore(unittest.TestCase):
+
+    def setUp(self):
+        # Create a new GroceryStore instance for testing
+        self.store = GroceryStore()
+        # Add some initial products
+        self.store.add_product(Product("Apple", 1.0, 100))
+        self.store.add_product(Product("Banana", 0.5, 50))
+        self.store.register_user("admin_username", "admin123", "Admin Address")  # Admin setup
+
+    def capture_output(self, func, *args):
+        """Helper method to capture printed output."""
+        captured_output = StringIO()
+        sys.stdout = captured_output
+        func(*args)
+        sys.stdout = sys.__stdout__
+        return captured_output.getvalue()
     def setUp(self):
         # Create a new GroceryStore instance for testing
         self.store = GroceryStore()
